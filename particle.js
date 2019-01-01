@@ -37,7 +37,7 @@ function Particle() {
     this.updatePrev = function() {
         this.prevPos.x = this.pos.x;
         this.prevPos.y = this.pos.y;
-    }
+    };
 
     this.edges = function() {
         if (this.pos.x > width) {
