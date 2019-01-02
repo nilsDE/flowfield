@@ -7,9 +7,16 @@ let zoff = 0;
 let particles = [];
 let flowfield;
 
+let sliderR;
+let sliderG;
+let sliderB;
+
 function setup() {
-	background(255);
   createCanvas(800, 600);
+	background(255);
+	sliderR = createSlider(0, 255, 0, 1);
+	sliderG = createSlider(0, 255, 0, 1);
+	sliderB = createSlider(0, 255, 0, 1);
   cols = floor(width/scl);
 	rows = floor(height/scl);
 	fr = createP('');
@@ -28,7 +35,7 @@ function draw() {
           let index = x+y*cols;
 					let angle = noise(xoff, yoff, zoff)*TWO_PI*4;
 					let v = p5.Vector.fromAngle(angle);
-					v.setMag(1);
+					v.setMag(0.7);
 					flowfield[index] = v;
           xoff += inc; 
 //					stroke(0, 50);
@@ -41,7 +48,7 @@ function draw() {
       }
 			yoff += inc;
 			
-			zoff += 0.0003;
+			zoff += 0.0005;
 	}
 
 	for (let particle of particles) {

@@ -28,7 +28,7 @@ class Particle {
     }
 
     show() {
-        stroke(0, 5);
+        stroke(sliderR.value(), sliderG.value(), sliderB.value(), 5);
         strokeWeight(1);
         line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
 //        point(this.pos.x, this.pos.y);
