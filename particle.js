@@ -16,8 +16,8 @@ class Particle {
     }
 
     follow(vectors) {
-        let x = floor(this.pos.x /scl);
-        let y = floor(this.pos.y /scl);
+        let x = floor(this.pos.x /scale);
+        let y = floor(this.pos.y /scale);
         let index = x + y * cols;
         let force = vectors[index];
         this.applyForce(force);
@@ -31,7 +31,6 @@ class Particle {
         stroke(sliderR.value(), sliderG.value(), sliderB.value(), 5);
         strokeWeight(1);
         line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
-//        point(this.pos.x, this.pos.y);
         this.updatePrev();
     } 
 
