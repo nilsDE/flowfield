@@ -4,7 +4,7 @@ class Particle {
         this.pos = createVector(random(width), random(height));
         this.vel = createVector(0, 0);
         this.acc = createVector(0, 0);
-        this.maxspeed = 2;
+        this.maxspeed = sliderSpeed.value();
         this.prevPos = this.pos.copy();
     }    
 
@@ -13,6 +13,7 @@ class Particle {
         this.vel.limit(this.maxspeed);
         this.pos.add(this.vel);
         this.acc.mult(0);
+        this.maxspeed = sliderSpeed.value();
     }
 
     follow(vectors) {

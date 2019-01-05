@@ -15,6 +15,8 @@ let sliderR;
 let sliderG;
 let sliderB;
 let sliderFlowFieldSpeed;
+let sliderMag;
+let sliderSpeed;
 
 let flowfieldVisible = false;
 
@@ -27,13 +29,23 @@ function setup() {
 	if (!flowfieldVisible) {
 		background(255);
 	}
-	sliderR = createSlider(0, 255, 0, 1);
-	sliderG = createSlider(0, 255, 0, 1);
-	sliderB = createSlider(0, 255, 0, 1);
-	sliderFlowFieldSpeed = createSlider(0.00005, 0.005, 0.0005, 0.00001);
-  cols = floor(width/scale);
+
+	//Add controls to the sketch
+	sliderR = createSlider(0, 255, 0, 1).parent('controls');
+	sliderG = createSlider(0, 255, 0, 1).parent('controls');
+	sliderB = createSlider(0, 255, 0, 1).parent('controls');
+	createP('The following slider lets you control how slow or fast the flowfield changes:').parent('controls');
+	sliderFlowFieldSpeed = createSlider(0.00005, 0.005, 0.0005, 0.00001).parent('controls');
+	createP('The following slider controls how much the flowfield influences the path of the particles:').parent('controls');
+	sliderMag = createSlider(0.1, 3, 0.7, 0,1).parent('controls');
+	createP('The following slider contols the speed of the particles:').parent('controls');
+	sliderSpeed = createSlider(0.1, 4, 2, 0.1).parent('controls');
+	createP('Keep an eye on the current framerate:').parent('controls');
+	currentFrameRate = createP('').parent('controls');
+	createP('Finally, press \'s\' to save a screnshot!').parent('controls');
+
+	cols = floor(width/scale);
 	rows = floor(height/scale);
-	currentFrameRate = createP('');
 	flowfield = new Array(cols*rows);
 
 	for (let i =0; i < 1500; i++) {
@@ -42,20 +54,21 @@ function setup() {
 
 	//Toggle between particles and flowfield when button is clicked
 	document.querySelector(".flowfield-button").onclick = () => {
-		clear();
+		restartSketch();
 		flowfieldVisible = flowfieldVisible ? false : true;
 	 };
 
 	 //Restart the sketch
-	 document.querySelector(".clear-canvas").onclick = () => {
-		clear();
-		particles = [];
-		for (let i =0; i < 1500; i++) {
-			particles[i] = new Particle();
-		}
-	 };
+	 document.querySelector(".clear-canvas").onclick = () => {restartSketch();};			 
 }
 
+function restartSketch() {
+	clear();
+	particles = [];
+	for (let i =0; i < 1500; i++) {
+		particles[i] = new Particle();
+	}
+}
 
 /**************
  **** DRAW ****
@@ -71,7 +84,7 @@ function draw() {
           let index = x+y*cols;
 					let angle = noise(xoff, yoff, zOffset)*TWO_PI*4;
 					let v = p5.Vector.fromAngle(angle);
-					v.setMag(0.7);
+					v.setMag(sliderMag.value());
 					flowfield[index] = v;
 					xoff += increment; 
 
