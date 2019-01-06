@@ -91,9 +91,9 @@ function restartSketch() {
 	}
 }
 
-/**************
+/***************
  **** DRAW ****
- *************/
+ **************/
 function draw() {
 	if (flowfieldVisible) {
 		background(255);
@@ -135,7 +135,9 @@ function draw() {
 currentFrameRate.html(floor(frameRate()));		
 }
 
-//Save a jpg of the current canvas by pressing 's'
+/*********************************
+ ** Save a jpg by pressing 's' **
+*********************************/
 keyReleased = function() {
 	if (key == 's' || key == 'S') save('myCanvas.jpg');
 };
