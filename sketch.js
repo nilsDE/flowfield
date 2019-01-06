@@ -19,6 +19,7 @@ let sliderMag;
 let sliderSpeed;
 
 let flowfieldVisible = false;
+let backgroundWhite = true;
 
 /***************
  **** SETUP ****
@@ -37,7 +38,7 @@ function setup() {
 	createP('The following slider lets you control how slow or fast the flowfield changes:').parent('controls');
 	sliderFlowFieldSpeed = createSlider(0.00005, 0.005, 0.0005, 0.00001).parent('controls');
 	createP('The following slider controls how much the flowfield influences the path of the particles:').parent('controls');
-	sliderMag = createSlider(0.1, 3, 0.7, 0,1).parent('controls');
+	sliderMag = createSlider(0.1, 3, 0.7, 0.1).parent('controls');
 	createP('The following slider contols the speed of the particles:').parent('controls');
 	sliderSpeed = createSlider(0.1, 4, 2, 0.1).parent('controls');
 	createP('Keep an eye on the current framerate:').parent('controls');
@@ -56,14 +57,34 @@ function setup() {
 	document.querySelector(".flowfield-button").onclick = () => {
 		restartSketch();
 		flowfieldVisible = flowfieldVisible ? false : true;
-	 };
+	};
 
-	 //Restart the sketch
-	 document.querySelector(".clear-canvas").onclick = () => {restartSketch();};			 
+	//Restart the sketch
+	document.querySelector(".clear-canvas").onclick = () => {restartSketch();};
+	
+	//Toggle background between white and black when button is clicked
+	document.querySelector(".background").onclick = () => {
+		if (backgroundWhite) {
+			background(0);
+			backgroundWhite = false;
+		} else {
+			background(255);
+			backgroundWhite = true;
+		}
+	};			 
+
 }
 
+/**************
+ ** RESTART **
+ *************/
 function restartSketch() {
 	clear();
+	if (backgroundWhite) {
+		background(255);
+	} else {
+		background(0);
+	}
 	particles = [];
 	for (let i =0; i < 1500; i++) {
 		particles[i] = new Particle();
