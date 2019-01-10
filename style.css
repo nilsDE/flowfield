@@ -1,3 +1,7 @@
+body {
+    font-family: 'Thasadith', sans-serif;
+}
+
 .container {
     display: flex;
 }
