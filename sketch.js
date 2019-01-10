@@ -1,6 +1,6 @@
 /*******************
-* GLOBAL VARIABLES *
-*******************/
+ * GLOBAL VARIABLES *
+ *******************/
 let cols;
 let rows;
 let scale = 10;
@@ -45,11 +45,11 @@ function setup() {
 	currentFrameRate = createP('').parent('controls');
 	createP('Finally, press \'s\' to save a screnshot!').parent('controls');
 
-	cols = floor(width/scale);
-	rows = floor(height/scale);
-	flowfield = new Array(cols*rows);
+	cols = floor(width / scale);
+	rows = floor(height / scale);
+	flowfield = new Array(cols * rows);
 
-	for (let i =0; i < 1500; i++) {
+	for (let i = 0; i < 1500; i++) {
 		particles[i] = new Particle();
 	}
 
@@ -60,8 +60,10 @@ function setup() {
 	};
 
 	//Restart the sketch
-	document.querySelector(".clear-canvas").onclick = () => {restartSketch();};
-	
+	document.querySelector(".clear-canvas").onclick = () => {
+		restartSketch();
+	};
+
 	//Toggle background between white and black when button is clicked
 	document.querySelector(".background").onclick = () => {
 		if (backgroundWhite) {
@@ -71,7 +73,7 @@ function setup() {
 			background(255);
 			backgroundWhite = true;
 		}
-	};			 
+	};
 
 }
 
@@ -86,7 +88,7 @@ function restartSketch() {
 		background(0);
 	}
 	particles = [];
-	for (let i =0; i < 1500; i++) {
+	for (let i = 0; i < 1500; i++) {
 		particles[i] = new Particle();
 	}
 }
@@ -98,31 +100,31 @@ function draw() {
 	if (flowfieldVisible) {
 		background(255);
 	}
-  let yoff = 0;
-  for (let y = 0; y < rows; y++) {
-      let xoff = 0;
-      for (let x = 0; x < cols; x++) {
-          let index = x+y*cols;
-					let angle = noise(xoff, yoff, zOffset)*TWO_PI*4;
-					let v = p5.Vector.fromAngle(angle);
-					v.setMag(sliderMag.value());
-					flowfield[index] = v;
-					xoff += increment; 
+	let yoff = 0;
+	for (let y = 0; y < rows; y++) {
+		let xoff = 0;
+		for (let x = 0; x < cols; x++) {
+			let index = x + y * cols;
+			let angle = noise(xoff, yoff, zOffset) * TWO_PI * 4;
+			let v = p5.Vector.fromAngle(angle);
+			v.setMag(sliderMag.value());
+			flowfield[index] = v;
+			xoff += increment;
 
-					//draw the flowfield depending on whether the button has been clicked
-					if (flowfieldVisible) {
-						stroke(0, 50);
-						push();
-						translate(x*scale, y* scale);
-						rotate(v.heading());
-						strokeWeight(1);
-						line(0, 0, scale, 0);
-						pop();
-					}
-      }
-			yoff += increment;
-			
-			zOffset += sliderFlowFieldSpeed.value();
+			//draw the flowfield depending on whether the button has been clicked
+			if (flowfieldVisible) {
+				stroke(0, 50);
+				push();
+				translate(x * scale, y * scale);
+				rotate(v.heading());
+				strokeWeight(1);
+				line(0, 0, scale, 0);
+				pop();
+			}
+		}
+		yoff += increment;
+
+		zOffset += sliderFlowFieldSpeed.value();
 	}
 
 	for (let particle of particles) {
@@ -132,12 +134,12 @@ function draw() {
 		particle.show();
 	}
 
-currentFrameRate.html(floor(frameRate()));		
+	currentFrameRate.html(floor(frameRate()));
 }
 
 /*********************************
  ** Save a jpg by pressing 's' **
-*********************************/
-keyReleased = function() {
+ *********************************/
+keyReleased = function () {
 	if (key == 's' || key == 'S') save('myCanvas.jpg');
 };

@@ -1,4 +1,3 @@
-
 class Particle {
     constructor() {
         this.pos = createVector(random(width), random(height));
@@ -6,7 +5,7 @@ class Particle {
         this.acc = createVector(0, 0);
         this.maxspeed = sliderSpeed.value();
         this.prevPos = this.pos.copy();
-    }    
+    }
 
     update() {
         this.vel.add(this.acc);
@@ -17,8 +16,8 @@ class Particle {
     }
 
     follow(vectors) {
-        let x = floor(this.pos.x /scale);
-        let y = floor(this.pos.y /scale);
+        let x = floor(this.pos.x / scale);
+        let y = floor(this.pos.y / scale);
         let index = x + y * cols;
         let force = vectors[index];
         this.applyForce(force);
@@ -33,7 +32,7 @@ class Particle {
         strokeWeight(1);
         line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
         this.updatePrev();
-    } 
+    }
 
     updatePrev() {
         this.prevPos.x = this.pos.x;
